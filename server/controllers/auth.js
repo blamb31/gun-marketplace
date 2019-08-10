@@ -48,15 +48,13 @@ module.exports = {
             
             const userExistsList = await db.get_gun_owner_by_email(email)
             const userExists = userExistsList[0]
-            console.log(userExistsList)
 
             if(!userExists) {
-                res.status(404).send("USername or Password is incorrect")
+                res.status(404).send("Username or Password is incorrect")
             }
 
             const isAuthenticated = bcrypt.compareSync(password, userExists.password)
 
-            console.log(isAuthenticated)
             if(!isAuthenticated) {
                 res.status(404).send("Username or Password is incorrect")
             }
@@ -70,5 +68,10 @@ module.exports = {
             console.log("There is an error in the login block (authCtrl)", err)
             res.status(409).send(err)
         }
+    },
+
+    logout: async (req, res) => {
+        req.session.destroy()
+        res.status(200).send("Logged Out")
     }
 }
