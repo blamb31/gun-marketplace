@@ -73,5 +73,20 @@ module.exports = {
     logout: async (req, res) => {
         req.session.destroy()
         res.status(200).send("Logged Out")
+    },
+
+    checkEmail: async (req, res, next) => {
+        const {email} = req.body
+        const db = req.app.get('db')
+
+        const isEmail = await db.checkEmail(email)
+        
+        if(isEmail[0]) {
+            res.send("That Email address is already in Use!")
+        }
+        else{
+            next()
+        }
+
     }
 }
