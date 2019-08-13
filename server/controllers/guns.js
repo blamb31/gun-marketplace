@@ -32,5 +32,48 @@ module.exports= {
             console.log("Error in the getGun block (gunCtrl)", err)
             res.status(404).send(err)
         }
+    },
+    addGun: async (req, res) =>{
+        try {
+            const user = req.session.user
+            if(!user) {
+                return res.status(401).send("No User Logged In!")
+            }
+
+            console.log(232323, req.body)
+
+            const {
+                type,
+                description,
+                price, 
+                location_lat,
+                location_long,
+                city, 
+                state,
+                brand,
+                model
+            } = req.body
+
+            const {id:owner} = req.session.user
+            console.log(555, owner)
+            const db = req.app.get('db')
+            const gunList = await db.add_gun({
+                owner,
+                type,
+                description,
+                price, 
+                location_lat,
+                location_long,
+                city, 
+                state,
+                brand,
+                model
+            })
+            console.log(59595, gunList)
+            res.status(200).send(gunList)
+        }catch(err){
+            console.log("There is an error in the addGun Block (gunsCtrl)", err)
+            res.status(409).send(err)
+        }
     }
 }

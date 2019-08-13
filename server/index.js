@@ -29,8 +29,10 @@ app.use(session({
     }
 }))
 
-app.get('/guns', gunsCtrl.getGuns)
 app.post('/auth/register', authCtrl.checkEmail, authCtrl.register)
 app.post('/auth/login', authCtrl.login)
 app.get('/auth/logout', authCtrl.logout)
+
+app.get('/guns', gunsCtrl.getGuns)
 app.get('/guns/:gun_id', gunsCtrl.getGun)
+app.post('/guns', gunsCtrl.addGun)
