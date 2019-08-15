@@ -55,7 +55,6 @@ module.exports= {
             } = req.body
 
             const {id:owner} = req.session.user
-            console.log(555, owner)
             const db = req.app.get('db')
             const gunList = await db.add_gun({
                 owner,
@@ -69,10 +68,31 @@ module.exports= {
                 brand,
                 model
             })
-            console.log(59595, gunList)
             res.status(200).send(gunList)
         }catch(err){
             console.log("There is an error in the addGun Block (gunsCtrl)", err)
+            res.status(409).send(err)
+        }
+    },
+    deleteGun: async (req, res) => {
+        try{
+            console.log('hit')
+            const {user} = req.session
+            const {gun_id:id} = req.params
+    
+            if(!user) {
+                return res.status(401).send("No User Logged In!")
+            }
+            console.log(6677667, user, id)
+
+            const db = req.app.get('db')
+            const gunList = await db.delete_gun(id)
+            console.log(99999, gunList)
+
+            res.status(200).send(gunList)
+
+        }catch(err){
+            console.log("There is an error in thedeleteGun Block (gunsCtrl)", err)
             res.status(409).send(err)
         }
     }
