@@ -132,5 +132,46 @@ module.exports= {
             console.log("There is an error in the editGun Block (gunsCtrl)", err)
             res.status(409).send(err)
         }
+    },
+    addGunToFavorites: async (req, res) => {
+        try{
+            const {user} = req.session
+            if(!user) {
+                return res.status(401).send("No User Logged In!")
+            }
+            const {id:user_id} = req.session.user
+            const {gun_id:id} = req.params
+            const db = req.app.get('db')
+            await db.add_gun_to_favorites({
+                gun_id:id,
+                user_id
+            })
+
+            res.send('success')
+
+        }catch(err) {
+            console.log("There is an error in the addGunToFavorites Block (gunsCtrl)", err)
+            res.status(409).send(err)
+        }
+    },
+    deleteGunFromFavorites: async (req, res) => {
+        try{
+            const {user} = req.session
+            if(!user) {
+                return res.status(401).send("No User Logged In!")
+            }
+            const {id:user_id} = req.session.user
+            const {gun_id:id} = req.params
+            const db = req.app.get('db')
+            await db.delete_gun_from_favorites({
+                gun_id:id,
+                user_id
+            })
+
+            res.send('success')
+        }catch(err) {
+            console.log("There is an error in the addGunToFavorites Block (gunsCtrl)", err)
+            res.status(409).send(err)
+        }
     }
 }

@@ -22,4 +22,9 @@ CREATE TABLE guns (
     state VARCHAR,
     brand VARCHAR,
     model VARCHAR
-)
+);
+
+CREATE TABLE favorite_guns (
+    gun_id INTEGER REFERENCES guns(id) ON DELETE CASCADE, 
+    owner_id INTEGER REFERENCES gun_owners(id) ON DELETE CASCADE
+);
