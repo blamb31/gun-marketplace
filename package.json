@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.1.1",
     "aws-sdk": "^2.503.0",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
@@ -39,7 +40,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"http://localhost:3131",
+  "proxy": "http://localhost:3131",
   "main": "server/index.js",
   "nodemonConfig": {
     "ext": "js, sql",

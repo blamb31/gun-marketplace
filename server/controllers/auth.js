@@ -39,30 +39,32 @@ module.exports = {
             const currentUser = req.session.user
 
             if(currentUser) {
-                res.status(401).send('user already logged in')
+                return res.status(401).send('user already logged in')
             }
 
             let db = req.app.get('db')
 
             const { email, password } = req.body
+
             
             const userExistsList = await db.get_gun_owner_by_email(email)
             const userExists = userExistsList[0]
 
             if(!userExists) {
-                res.status(404).send("Username or Password is incorrect")
+                return res.status(404).send("Username or Password is incorrect")
             }
 
             const isAuthenticated = bcrypt.compareSync(password, userExists.password)
 
             if(!isAuthenticated) {
-                res.status(404).send("Username or Password is incorrect")
+                return res.status(404).send("Username or Password is incorrect")
             }
             delete userExists.password
 
+            
             req.session.user = userExists
-
-            res.status(200).send(req.session.user)
+            
+            return res.status(200).send(req.session.user)
 
         }catch(err) {
             console.log("There is an error in the login block (authCtrl)", err)
@@ -87,6 +89,13 @@ module.exports = {
         else{
             next()
         }
+    },
 
+    getUser: (req, res) => {
+        // console.log('hit', req.session)
+        if(!req.session.user) {
+            return res.status(401).send('No User Logged In')
+        }
+        res.status(200).send(req.session.user)
     }
 }

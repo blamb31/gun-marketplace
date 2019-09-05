@@ -25,11 +25,13 @@ app.use(session({
     resave: false,
     saveUninitialized:  false,
     cookie: {
+        // secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 365
     }
 }))
 
 app.post('/auth/register', authCtrl.checkEmail, authCtrl.register)
+app.get('/auth/getUser', authCtrl.getUser)
 app.post('/auth/login', authCtrl.login)
 app.get('/auth/logout', authCtrl.logout)
 
