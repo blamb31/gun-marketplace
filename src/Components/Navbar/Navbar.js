@@ -26,7 +26,7 @@ let NavBar = (props) => {
                 :
 
                 <div>
-                    <button>Login</button>
+                    <button onClick={()=> props.window.push('/login')}>Login</button>
                 </div>
 
             }

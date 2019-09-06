@@ -31,14 +31,16 @@ app.use(session({
 }))
 
 app.post('/auth/register', authCtrl.checkEmail, authCtrl.register)
-app.get('/auth/getUser', authCtrl.getUser)
 app.post('/auth/login', authCtrl.login)
 app.get('/auth/logout', authCtrl.logout)
+
+app.get('/user/getUser', authCtrl.getUser)
+app.post('/user/editUser')
 
 app.get('/guns', gunsCtrl.getGuns)
 app.get('/guns/:gun_id', gunsCtrl.getGun)
 app.post('/guns', gunsCtrl.addGun)
 app.delete('/guns/:gun_id', gunsCtrl.deleteGun)
 app.post('/guns/favorite/:gun_id', gunsCtrl.addGunToFavorites)
-app.post('/guns/deleteFavorite/:gun_id', gunsCtrl.deleteGunFromFavorites)
+app.post('/guns/removeFavorite/:gun_id', gunsCtrl.removeGunFromFavorites)
 app.put('/guns/:gun_id', gunsCtrl.editGun)

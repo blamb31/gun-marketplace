@@ -154,7 +154,7 @@ module.exports= {
             res.status(409).send(err)
         }
     },
-    deleteGunFromFavorites: async (req, res) => {
+    removeGunFromFavorites: async (req, res) => {
         try{
             const {user} = req.session
             if(!user) {

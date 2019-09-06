@@ -128,7 +128,7 @@ export default function user(state = initialState, action) {
 export function getUser() {
     return{
         type: GET_USER,
-        payload: Axios.get('/auth/getUser')
+        payload: Axios.get('/user/getUser')
     }
 }
 
@@ -150,5 +150,12 @@ export function logoutUser() {
     return{
         type: LOGOUT_USER,
         payload: Axios.get('/auth/logout')
+    }
+}
+
+export function editUser(editedInfo) {
+    return {
+        type: EDIT_USER,
+        payload: Axios.post('/user/editUser', editedInfo)
     }
 }
